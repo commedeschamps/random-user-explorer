@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random User Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="emptyState" class="empty-state">
+        <div class="empty-card">
+            <div class="empty-icon">
+                <i class="fa fa-globe"></i>
+            </div>
+            <h1>Random User Explorer</h1>
+            <p>Generate random user profiles with country information, exchange rates, and the latest news headlines</p>
+            <button id="btn" class="generate-btn">
+                <svg height="24" width="24" fill="#FFFFFF" viewBox="0 0 24 24" class="sparkle">
+                    <path d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z"></path>
+                </svg>
+                <span>Generate</span>
+            </button>
+            <div class="features">
+                <div class="feature"><i class="fa fa-user"></i> User Profile</div>
+                <div class="feature"><i class="fa fa-flag"></i> Country Info</div>
+                <div class="feature"><i class="fa fa-coins"></i> Exchange Rates</div>
+                <div class="feature"><i class="fa fa-newspaper"></i> News</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loading" class="loading-state hidden">
+        <div class="loader-wrapper">
+            <span class="loader-letter">G</span>
+            <span class="loader-letter">e</span>
+            <span class="loader-letter">n</span>
+            <span class="loader-letter">e</span>
+            <span class="loader-letter">r</span>
+            <span class="loader-letter">a</span>
+            <span class="loader-letter">t</span>
+            <span class="loader-letter">i</span>
+            <span class="loader-letter">n</span>
+            <span class="loader-letter">g</span>
+            <div class="loader"></div>
+        </div>
+    </div>
+
+    <div id="error" class="error-state hidden"></div>
+
+    <div id="result" class="result-state hidden">
+        <div class="result-container">
+            <!-- Profile Card -->
+            <div class="profile-card">
+                <button id="btnRefresh" class="refresh-btn" title="Get another user">
+                    <i class="fa fa-rotate"></i>
+                </button>
+                <div class="profile-header">
+                    <div class="avatar-wrapper">
+                        <img id="profilePicture" src="" alt="Profile">
+                        <span class="online-badge"></span>
+                    </div>
+                    <h1 id="fullName"></h1>
+                    <p class="email" id="email"></p>
+                </div>
+                <div class="profile-stats">
+                    <div class="stat">
+                        <i class="fa fa-venus-mars"></i>
+                        <span class="stat-value" id="gender"></span>
+                        <span class="stat-label">Gender</span>
+                    </div>
+                    <div class="stat">
+                        <i class="fa fa-cake-candles"></i>
+                        <span class="stat-value" id="age"></span>
+                        <span class="stat-label">Age</span>
+                    </div>
+                    <div class="stat">
+                        <i class="fa fa-calendar"></i>
+                        <span class="stat-value" id="dateOfBirth"></span>
+                        <span class="stat-label">Birthday</span>
+                    </div>
+                </div>
+                <div class="profile-location">
+                    <div class="location-row">
+                        <i class="fa fa-map-marker-alt"></i>
+                        <span id="address"></span>
+                    </div>
+                    <div class="location-row">
+                        <i class="fa fa-city"></i>
+                        <span><span id="city"></span>, <span id="country"></span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card country-card">
+                    <div class="card-header">
+                        <img id="countryFlag" src="" alt="Flag" class="flag">
+                        <div>
+                            <h3 id="countryName"></h3>
+                            <span class="capital"><i class="fa fa-landmark"></i> <span id="capital"></span></span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="detail-item">
+                            <i class="fa fa-language"></i>
+                            <div>
+                                <span class="detail-label">Languages</span>
+                                <span class="detail-value" id="languages"></span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fa fa-coins"></i>
+                            <div>
+                                <span class="detail-label">Currency</span>
+                                <span class="detail-value" id="currency"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card exchange-card">
+                    <h3><i class="fa fa-chart-line"></i> Exchange Rates</h3>
+                    <div class="exchange-rates">
+                        <div class="rate-item">
+                            <span class="rate-flag">🇺🇸</span>
+                            <div class="rate-info">
+                                <span class="rate-label">US Dollar</span>
+                                <span class="rate-value" id="exchangeUSD"></span>
+                            </div>
+                        </div>
+                        <div class="rate-item">
+                            <span class="rate-flag">🇰🇿</span>
+                            <div class="rate-info">
+                                <span class="rate-label">Kazakhstani Tenge</span>
+                                <span class="rate-value" id="exchangeKZT"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-section">
+                <h2><i class="fa fa-newspaper"></i> Latest Headlines</h2>
+                <div id="newsContainer" class="news-grid">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="frontend.js"></script>
+</body>
+</html>
