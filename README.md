@@ -95,6 +95,46 @@ docker run -p 3000:3000 --env-file .env random-user-explorer
 
 ---
 
+## API Usage Details
+
+### 1. Random User Generator API
+- Endpoint: `https://randomuser.me/api/`
+- Used to fetch a random user's personal and location details (first name, last name, gender, profile picture, age, date of birth, city, country, address).
+- Called from the backend (`server.js`), not from the frontend.
+
+### 2. Country Info API (REST Countries or CountryLayer)
+- Endpoint: `https://restcountries.com/v3.1/name/{country}` (or CountryLayer if available)
+- Used to fetch country name, capital, official languages, currency, and flag based on the user's country.
+- API key is stored in `.env` if using CountryLayer.
+
+### 3. Exchange Rate API
+- Endpoint: `https://v6.exchangerate-api.com/v6/{API_KEY}/latest/{currency}`
+- Used to fetch exchange rates for the user's currency to USD and KZT.
+- API key is stored in `.env`.
+
+### 4. News API
+- Endpoint: `https://newsapi.org/v2/everything`
+- Used to fetch 5 latest news headlines in English related to the user's country.
+- API key is stored in `.env`.
+
+---
+
+## Key Design Decisions
+
+- **Server-side API Calls:** All API requests are made on the server (Node.js/Express) for security and to keep API keys hidden. The frontend only receives cleaned, relevant data.
+- **Separation of Concerns:** All business logic (API calls, data processing) is implemented in `server.js`. The frontend (`frontend.js`) is responsible only for displaying data and handling user interactions.
+- **Environment Variables:** All sensitive API keys are stored in a `.env` file and never hardcoded.
+- **Error Handling:** The server gracefully handles missing or unavailable data from APIs and sends only valid, cleaned data to the frontend.
+- **Responsive UI:** The frontend uses modern HTML/CSS for a clean, responsive, and user-friendly interface. Data is displayed in cards and structured sections.
+- **Project Structure:**
+  - `server.js`: Main backend logic and API integration
+  - `public/`: Static frontend assets (JS, CSS)
+  - `views/`: HTML templates
+  - `.env`: Environment variables (not committed)
+  - `package.json`: Project metadata and dependencies
+
+---
+
 ## License
 
 MIT
