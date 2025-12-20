@@ -2,7 +2,7 @@
 
 A modern web application to explore random user profiles, country information, currency exchange rates, and the latest news headlines. Built with Node.js, Express, and public APIs.
 
-[![Live on Fly.io](https://www.fly.io/public/images/flyio-badge.svg)](https://random-user-explorer-cipjtw.fly.dev/)
+
 
 ## Live Demo
 
