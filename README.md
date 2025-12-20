@@ -1,8 +1,6 @@
 # Random User Explorer
 
-A modern web application to explore random user profiles, country information, currency exchange rates, and the latest news headlines. Built with Node.js, Express, and public APIs.
-
-
+A modern web application to explore random user profiles, country information, currency exchange rates, maps, and the latest news headlines. Built with Node.js, Express, and public APIs.
 
 ## Live Demo
 
@@ -15,6 +13,7 @@ A modern web application to explore random user profiles, country information, c
 - Generate a random user profile (name, photo, email, city, country, address, etc.)
 - View detailed country information (flag, capital, languages, currency)
 - See currency exchange rates (to USD and KZT)
+- View the user's location on an embedded Google Map
 - Read the latest news headlines for the user's country
 - Clean, responsive, and modern UI
 
@@ -22,18 +21,19 @@ A modern web application to explore random user profiles, country information, c
 
 ## Technologies Used
 
-- **Node.js** — JavaScript runtime
-- **Express** — Web server framework
-- **Axios** — HTTP client for API requests
-- **dotenv** — Environment variable management
-- **HTML5/CSS3** — Frontend UI
-- **Vanilla JavaScript** — Frontend logic
-- **REST Countries API** — Country info
-- **RandomUser API** — Random user data
-- **ExchangeRate API** — Currency rates
-- **NewsAPI** — Latest news headlines
-- **Fly.io** — Cloud deployment
-- **Docker** — Containerization (optional)
+- **Node.js** - JavaScript runtime
+- **Express** - Web server framework
+- **Axios** - HTTP client for API requests
+- **dotenv** - Environment variable management
+- **HTML5/CSS3** - Frontend UI
+- **Vanilla JavaScript** - Frontend logic
+- **REST Countries API** - Country info
+- **RandomUser API** - Random user data
+- **ExchangeRate API** - Currency rates
+- **NewsAPI** - Latest news headlines
+- **Google Maps Embed** - Location map
+- **Fly.io** - Cloud deployment
+- **Docker** - Containerization (optional)
 
 ---
 
@@ -53,7 +53,10 @@ Create a `.env` file in the root directory:
 ```
 EXCHANGERATE_API_KEY=your_exchangerate_api_key
 NEWS_API_KEY=your_newsapi_key
+PORT=3000
 ```
+
+`PORT` is optional. If not set, the server defaults to 8080.
 
 ### 3. Install dependencies
 
@@ -67,7 +70,7 @@ npm install
 npm start
 ```
 
-The app will be available at [http://localhost:3000](http://localhost:3000) (or the port you set).
+The app will be available at [http://localhost:8080](http://localhost:8080) by default (or the `PORT` you set).
 
 ---
 
@@ -99,13 +102,13 @@ docker run -p 3000:3000 --env-file .env random-user-explorer
 
 ### 1. Random User Generator API
 - Endpoint: `https://randomuser.me/api/`
-- Used to fetch a random user's personal and location details (first name, last name, gender, profile picture, age, date of birth, city, country, address).
+- Used to fetch a random user's personal and location details (first name, last name, gender, profile picture, age, date of birth, city, country, address, coordinates).
 - Called from the backend (`server.js`), not from the frontend.
 
-### 2. Country Info API (REST Countries or CountryLayer)
-- Endpoint: `https://restcountries.com/v3.1/name/{country}` (or CountryLayer if available)
+### 2. Country Info API (REST Countries)
+- Endpoint: `https://restcountries.com/v3.1/name/{country}`
 - Used to fetch country name, capital, official languages, currency, and flag based on the user's country.
-- API key is stored in `.env` if using CountryLayer.
+- No API key required.
 
 ### 3. Exchange Rate API
 - Endpoint: `https://v6.exchangerate-api.com/v6/{API_KEY}/latest/{currency}`
@@ -116,6 +119,13 @@ docker run -p 3000:3000 --env-file .env random-user-explorer
 - Endpoint: `https://newsapi.org/v2/everything`
 - Used to fetch 5 latest news headlines in English related to the user's country.
 - API key is stored in `.env`.
+
+---
+
+## Map Display
+
+The map uses a Google Maps embed URL built from the user's coordinates (preferred) or address.
+No API key is required for the basic embed.
 
 ---
 
