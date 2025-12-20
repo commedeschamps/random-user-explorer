@@ -117,6 +117,15 @@ app.get("/api/user", async (req, res) => {
         const apiResponse = await axios.get("https://randomuser.me/api/");
         const userData = apiResponse.data.results[0];
 
+        const rawCoordinates = userData.location && userData.location.coordinates
+            ? userData.location.coordinates
+            : null;
+        const latitude = rawCoordinates ? parseFloat(rawCoordinates.latitude) : null;
+        const longitude = rawCoordinates ? parseFloat(rawCoordinates.longitude) : null;
+        const coordinates = Number.isFinite(latitude) && Number.isFinite(longitude)
+            ? { latitude, longitude }
+            : null;
+
         const user = {
             firstName: userData.name.first,
             lastName: userData.name.last,
@@ -127,7 +136,8 @@ app.get("/api/user", async (req, res) => {
             email: userData.email,
             city: userData.location.city,
             country: userData.location.country,
-            address: `${userData.location.street.number} ${userData.location.street.name}`
+            address: `${userData.location.street.number} ${userData.location.street.name}`,
+            coordinates: coordinates
         };
 
         const [countryInfo, news] = await Promise.all([
