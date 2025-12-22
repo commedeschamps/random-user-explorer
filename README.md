@@ -13,7 +13,6 @@ A modern web application to explore random user profiles, country information, c
 - Generate a random user profile (name, photo, email, city, country, address, etc.)
 - View detailed country information (flag, capital, languages, currency)
 - See currency exchange rates (to USD and KZT)
-- View the user's location on an embedded Google Map
 - Read the latest news headlines for the user's country
 - Clean, responsive, and modern UI
 
@@ -31,7 +30,6 @@ A modern web application to explore random user profiles, country information, c
 - **RandomUser API** - Random user data
 - **ExchangeRate API** - Currency rates
 - **NewsAPI** - Latest news headlines
-- **Google Maps Embed** - Location map
 - **Fly.io** - Cloud deployment
 - **Docker** - Containerization (optional)
 
@@ -102,7 +100,7 @@ docker run -p 3000:3000 --env-file .env random-user-explorer
 
 ### 1. Random User Generator API
 - Endpoint: `https://randomuser.me/api/`
-- Used to fetch a random user's personal and location details (first name, last name, gender, profile picture, age, date of birth, city, country, address, coordinates).
+- Used to fetch a random user's personal and location details (first name, last name, gender, profile picture, age, date of birth, city, country, address).
 - Called from the backend (`server.js`), not from the frontend.
 
 ### 2. Country Info API (REST Countries)
@@ -119,13 +117,6 @@ docker run -p 3000:3000 --env-file .env random-user-explorer
 - Endpoint: `https://newsapi.org/v2/everything`
 - Used to fetch 5 latest news headlines in English related to the user's country.
 - API key is stored in `.env`.
-
----
-
-## Map Display
-
-The map uses a Google Maps embed URL built from the user's coordinates (preferred) or address.
-No API key is required for the basic embed.
 
 ---
 
