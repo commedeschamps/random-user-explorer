@@ -4,11 +4,6 @@ const error = document.getElementById("error");
 const result = document.getElementById("result");
 const btnGenerate = document.getElementById("btn");
 const btnRefresh = document.getElementById("btnRefresh");
-const mapEmbed = document.getElementById("mapEmbed");
-const mapFrame = document.getElementById("mapFrame");
-const mapLink = document.getElementById("mapLink");
-const mapFallback = document.getElementById("mapFallback");
-const mapLocation = document.getElementById("mapLocation");
 
 async function fetchUser() {
     emptyState.classList.add("hidden");
@@ -35,24 +30,6 @@ async function fetchUser() {
         document.getElementById("country").textContent = data.user.country;
         document.getElementById("address").textContent = data.user.address;
 
-        const locationLabel = [data.user.city, data.user.country].filter(Boolean).join(", ");
-        mapLocation.textContent = locationLabel || "Location";
-
-        const mapQuery = buildMapQuery(data.user);
-        if (mapQuery) {
-            const encodedQuery = encodeURIComponent(mapQuery);
-            mapEmbed.classList.remove("hidden");
-            mapFrame.src = `https://www.google.com/maps?q=${encodedQuery}&z=12&output=embed`;
-            mapLink.href = `https://www.google.com/maps/search/?api=1&query=${encodedQuery}`;
-            mapLink.classList.remove("hidden");
-            mapFallback.classList.add("hidden");
-        } else {
-            mapFrame.src = "";
-            mapEmbed.classList.add("hidden");
-            mapLink.classList.add("hidden");
-            mapFallback.classList.remove("hidden");
-        }
-        
         if (data.country) {
             document.getElementById("countryFlag").src = data.country.flag;
             document.getElementById("countryName").textContent = data.country.name;
@@ -102,15 +79,6 @@ function formatDate(dateString) {
 
 function capitalizeFirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function buildMapQuery(user) {
-    if (user.coordinates && Number.isFinite(user.coordinates.latitude) && Number.isFinite(user.coordinates.longitude)) {
-        return `${user.coordinates.latitude},${user.coordinates.longitude}`;
-    }
-
-    const parts = [user.address, user.city, user.country].filter(Boolean);
-    return parts.length > 0 ? parts.join(", ") : "";
 }
 
 function displayNews(news, countryName) {
