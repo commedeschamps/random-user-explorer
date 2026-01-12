@@ -4,7 +4,9 @@ A modern web application to explore random user profiles, country information, c
 
 ## Live Demo
 
-**Try it here:** [random-user-explorer-cipjtw.fly.dev](https://random-user-explorer-cipjtw.fly.dev/)
+**Try it here:** [random-user-explorer-cipjtw.fly.dev](https://random-user-explorer-cipjtw.fly.dev/) **No longer available**
+
+
 
 ---
 
